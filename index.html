@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Elneris Progress Bar WIP</title>
+    <style>
+        body {
+            background-color: green; /*Fond vert pour invisible sur OBS*/
+        }
+
+        .input {
+            margin-top: 20px;
+        }
+
+        #pwidget
+        {
+            overflow: hidden;
+            background-color:lightgray;
+            width:254px;
+            padding:2px;
+            -moz-border-radius:3px;
+            border-radius:25px;
+            text-align:left;
+            border:1px solid gray;
+        }
+        #progressbar
+        {
+            overflow: hidden;
+            width:250px;
+            padding:1px;
+            background-color:white; /*Fond a 0% changer si prefere une autre couleur*/
+
+            border-radius:25px;
+            height:28px;
+        }
+        #indicator
+        {
+            width:0px;
+            border-radius:25px;
+            background-image:url('6866180_preview.png'); /*Fond a 100% dégradé rose / violet changer par un background en 28px de hauteur et 250 px de longueur*/
+            height:28px;
+            margin:0;
+        }
+        #progressnum
+        {
+            font-weight: bold;
+            padding-top: 4px;
+            text-align:center;
+            width:250px;
+        }
+    </style>
+</head>
+<body>
+<div id="pwidget">
+    <div id="progressbar">
+        <div id="indicator"><div id="progressnum">0 %</div></div>
+    </div>
+
+</div>
+<div class="input">
+    <input
+            type="button"
+            name="Submit"
+            value="Start"
+            onclick="itv = setInterval(prog, hour * 60 * 60 * 1000/100)"
+    />
+
+    <input
+            type="button"
+            name="Submit"
+            value="Pause"
+            onclick="clearInterval(itv)"
+    />
+</div>
+
+<script>
+    // MODIFIABLE
+    let hour = 1; // choisir le nombre d'heure pour arriver a 100%
+
+    // 1 h => 1% toutes les 36 s
+    // 2h => 1% toutes les 1m12
+
+
+    // Ne pas modifier
+    let maxprogress = 100;
+    let actualprogress = 0;
+    let itv = 1;
+
+    function prog() {
+        if(actualprogress >= maxprogress) {
+            clearInterval(itv);
+            return;
+        }
+
+        let progressnum = document.getElementById("progressnum");
+        let indicator = document.getElementById("indicator");
+        actualprogress += 1;
+
+        indicator.style.width=actualprogress * (250/maxprogress) + "px";
+        progressnum.innerHTML = actualprogress + ' %';
+        if(actualprogress === maxprogress) clearInterval(itv);
+    }
+</script>
+</body>
