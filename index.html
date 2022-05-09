@@ -9,8 +9,8 @@
         }
 
         .div {
-            margin-top: 20px; /*MODIFICABLE: Ecart avec le haut*/
-            margin-bottom: 20px; /*MODIFICABLE: Ecart avec le bas*/
+            margin-top: 10px; /*MODIFIABLE: Ecart avec le haut*/
+            margin-bottom: 10px; /*MODIFIABLE: Ecart avec le bas*/
         }
 
         #div-bar1, #div-bar2
@@ -24,6 +24,7 @@
             text-align:left;
             border:1px solid gray;
         }
+
         #progressbar
         {
             overflow: hidden;
@@ -51,6 +52,7 @@
             height:41px;
             margin:0;
         }
+
         #progressnum
         {
             font-weight: bold;
@@ -62,19 +64,20 @@
 
         progress::-moz-progress-bar { background-color: green }
         progress::-webkit-progress-value { background-color: green }
+        progress { color: green }
     </style>
 </head>
 <body>
 
 <div class="div">
-    <div class="div" id="div-bar1">
-        <progress id="bar1" max=manaMax value=actualMana style="background-image:url('blue.png')"></progress>
-    </div>
-
     <div class="div" id="div-bar2">
         <div id="progressbar">
             <div id="indicator"><div id="progressnum">100 %</div></div>
         </div>
+    </div>
+
+    <div class="div" id="div-bar1">
+        <progress id="bar1" max=manaMax value=actualMana style="background-image: url('blue.png')"></progress>
     </div>
 </div>
 
