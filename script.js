@@ -25,6 +25,7 @@ function clearBar() {
     document.getElementById("start").style.backgroundColor = null;
     document.getElementById("start").style.opacity = 1;
     document.getElementById("start").style.cursor = null;
+    document.getElementById("start").style.display = 'inline';
     document.getElementById("stop").style.display = "none";
 }
 
@@ -37,6 +38,7 @@ function prog() {
         document.getElementById("start").style.backgroundColor = "orange";
         document.getElementById("start").style.opacity = 0.6;
         document.getElementById("start").style.cursor = 'not-allowed';
+        document.getElementById("start").style.display = 'none';
         document.getElementById("stop").style.backgroundColor = "hotpink";
         document.getElementById("stop").style.display = "inline";
     }
@@ -76,6 +78,7 @@ function clearIntervalITV() {
     document.getElementById("start").value = "REPRENDRE";
     document.getElementById("start").style.backgroundColor = "orange";
     document.getElementById("start").style.opacity = 1;
+    document.getElementById("start").style.display = 'inline';
     document.getElementById("start").style.cursor = null;
     document.getElementById("stop").style.backgroundColor = null;
     document.getElementById("stop").style.display = "none";
