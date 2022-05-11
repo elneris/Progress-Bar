@@ -2,70 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Indriya2x0 Progress Bar</title>
-    <style>
-        body {
-            background-color: green; /*Fond vert pour invisible sur OBS ne pas changer*/
-        }
-
-        .div {
-            margin-top: 10px; /*MODIFIABLE: Ecart avec le haut*/
-            margin-bottom: 10px; /*MODIFIABLE: Ecart avec le bas*/
-        }
-
-        #div-bar1, #div-bar2
-        {
-            overflow: hidden;
-            background-color:lightgray;
-            width:254px;
-            padding:2px;
-            -moz-border-radius:3px;
-            border-radius:25px;
-            text-align:left;
-            border:1px solid gray;
-        }
-
-        #progressbar
-        {
-            overflow: hidden;
-            width:250px;
-            padding:1px;
-            background-image:url('pink.png');
-            border-radius:25px;
-            height:40px;
-        }
-
-        #bar1
-        {
-            overflow: hidden;
-            width:250px;
-            padding:1px;
-            background-color:white;
-            border-radius:25px;
-            height:40px;
-        }
-
-        #indicator
-        {
-            width:0px;
-            background-color:green;
-            height:41px;
-            margin:0;
-        }
-
-        #progressnum
-        {
-            font-weight: bold;
-            padding-top: 12px;
-            text-align:center;
-            width:250px;
-            color: white;
-        }
-
-        progress::-moz-progress-bar { background-color: green }
-        progress::-webkit-progress-value { background-color: green }
-        progress { color: green }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -122,24 +62,26 @@
                 onchange="setLiveTime(this.value)"
         />
         <input
-                type="button"
-                name="Submit"
-                value="START"
-                onclick="itv = setInterval(prog, minute * 60 * 1000/100)"
+            id="start"
+            type="button"
+            name="Submit"
+            value="COMMENCER"
+            onclick="itv = setInterval(prog, minute * 60 * 1000/100)"
         />
 
         <input
-                type="button"
-                name="Submit"
-                value="PAUSE"
-                onclick="clearInterval(itv)"
+            id="stop"
+            type="button"
+            name="Submit"
+            value="PAUSE"
+            onclick="clearIntervalITV(itv)"
         />
 
         <input
-                type="button"
-                name="Submit"
-                value="RESET"
-                onclick="clearBar()"
+            type="button"
+            name="Submit"
+            value="RESET"
+            onclick="clearBar()"
         />
         <select onchange="changeBGLiveFond(this.value)">
             <option value="pink.png">Rose</option>
@@ -155,81 +97,5 @@
 
 </div>
 
-<script>
-    // Valeur Global de départ
-    let minute = 1;
-    let manaMax = 30;
-    let actualMana = 0;
-    let maxprogress = 100;
-    let actualprogress = 0;
-    let itv = 1;
-
-    // Fonction sur la bar de temps de stream
-    function setLiveTime(value) {
-        minute = value
-    }
-
-    function clearBar() {
-        let progressnum = document.getElementById("progressnum");
-        let indicator = document.getElementById("indicator");
-        indicator.style.width="0px";
-
-        progressnum.innerHTML = '100 %';
-        maxprogress = 100;
-        actualprogress = 0
-        clearInterval(itv)
-    }
-
-    function prog() {
-        if(actualprogress >= maxprogress) {
-            clearInterval(itv);
-            return;
-        }
-
-        let progressnum = document.getElementById("progressnum");
-        let indicator = document.getElementById("indicator");
-        actualprogress += 1;
-
-        indicator.style.width=actualprogress * (250/maxprogress) + "px";
-        progressnum.innerHTML = 100 - actualprogress + ' %';
-        if(actualprogress === maxprogress) clearInterval(itv);
-    }
-
-    function changeBGLive(value) {
-        let progressnum = document.getElementById("progressnum");
-        let indicator = document.getElementById("indicator");
-        indicator.style.backgroundColor=value;
-        value === 'white' ? progressnum.style.color="black" : progressnum.style.color="white";
-    }
-
-    function changeBGLiveFond(value) {
-        let progressbar = document.getElementById("progressbar");
-        progressbar.style.backgroundImage=`url('${value}')`;
-    }
-
-    // Fonction sur la Bar de mana ( Private Show )
-    function resetMax() {
-        let bar = document.getElementById("bar1")
-        bar.value = 0;
-        bar.max = manaMax;
-        actualMana = 0;
-    }
-
-    function change(i) {
-        let bar = document.getElementById("bar1")
-        bar.value = actualMana + i;
-        actualMana += i;
-    }
-
-    function setManaTime(value) {
-        let bar = document.getElementById("bar1")
-        bar.max = value;
-        manaMax = value;
-    }
-
-    function changeManaTime(value) {
-        let indicator = document.getElementById("bar1");
-        indicator.style.backgroundImage=`url('${value}')`;
-    }
-</script>
+<script src="script.js"></script>
 </body>
